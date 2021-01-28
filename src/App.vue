@@ -1,17 +1,38 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <div>
+      12345
+    </div>
+    <div>
+      <img :src="imageUrl" alt="">
+    </div>
+    <div>
+      <button @click="changeImage">
+        換圖片
+      </button>
+    </div>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import axios from 'axios'
 
 export default {
   name: 'App',
-  components: {
-    HelloWorld
+  data() {
+    return {
+      imageUrl: '',
+    }
+  },
+  created() {
+    this.changeImage()
+  },
+  methods: {
+    async changeImage() {
+      this.imageUrl = ''
+      const res = await axios.get('https://yesno.wtf/api')
+      this.imageUrl = res.data.image
+    }
   }
 }
 </script>
